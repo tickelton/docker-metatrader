@@ -1,5 +1,9 @@
 # Run MetaTrader in a container.
 #
+# Copyright (c) 2018 tick <tickelton@gmail.com>
+#
+# SPDX-License-Identifier:     ISC
+#
 # docker run \
 #	--net host \
 #	-v /tmp/.X11-unix:/tmp/.X11-unix \
