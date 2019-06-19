@@ -15,7 +15,7 @@
 # Base docker image.
 FROM ubuntu:xenial
 
-ADD https://dl.winehq.org/wine-builds/Release.key /Release.key
+ADD https://dl.winehq.org/wine-builds/winehq.key /Release.key
 
 # Install Wine
 RUN echo "deb http://dl.winehq.org/wine-builds/ubuntu/ xenial main" >> /etc/apt/sources.list && \
