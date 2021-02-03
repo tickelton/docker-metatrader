@@ -43,7 +43,8 @@ This issue can be solved as follow:
 * stop the container without any further actions (by closing MetaTrader).
 * commit the changes to a new image, e.g.:
 ```shell
-# docker commit cc349c658225 mt```
+# docker commit cc349c658225 mt
+```
 
 The resulting image **"mt"** will now start MetaTrader immediately without any further prompts.
 
