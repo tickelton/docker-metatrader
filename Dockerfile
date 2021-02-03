@@ -1,6 +1,6 @@
 # Run MetaTrader in a container.
 #
-# Copyright (c) 2018 tick <tickelton@gmail.com>
+# Copyright (c) 2021 tick <tickelton@gmail.com>
 #
 # SPDX-License-Identifier:     ISC
 #
@@ -13,12 +13,14 @@
 #	tickelton/mt
 
 # Base docker image.
-FROM ubuntu:xenial
+FROM ubuntu:groovy
 
 ADD https://dl.winehq.org/wine-builds/winehq.key /Release.key
 
 # Install Wine
-RUN echo "deb http://dl.winehq.org/wine-builds/ubuntu/ xenial main" >> /etc/apt/sources.list && \
+RUN apt-get update && \
+	apt-get install -y gnupg apt-utils && \
+	echo "deb http://dl.winehq.org/wine-builds/ubuntu/ groovy main" >> /etc/apt/sources.list && \
 	apt-key add Release.key && \
 	dpkg --add-architecture i386 && \
 	apt-get update && \
@@ -36,12 +38,7 @@ RUN groupadd -g 1000 wine \
 # Run MetaTrader as non privileged user.
 USER wine
 
-# MetaTrader 5 needs WINEARCH=win32.
-# Not strictly necessary for MT4, but this
-# way it works for both versions.
-ENV WINEARCH win32
-
 # Autorun MetaTrader Terminal.
 ENTRYPOINT [ "wine" ]
-CMD [ "/MetaTrader/terminal.exe", "/portable" ]
+CMD [ "/MetaTrader/terminal64.exe", "/portable" ]
 
