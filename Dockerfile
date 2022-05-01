@@ -13,19 +13,20 @@
 #	tickelton/mt
 
 # Base docker image.
-FROM ubuntu:groovy
+FROM ubuntu:focal
 
-ADD https://dl.winehq.org/wine-builds/winehq.key /Release.key
+ADD https://dl.winehq.org/wine-builds/winehq.key /winehq.key
 
 # Install Wine
 RUN apt-get update && \
 	apt-get install -y gnupg apt-utils && \
-	echo "deb http://dl.winehq.org/wine-builds/ubuntu/ groovy main" >> /etc/apt/sources.list && \
-	apt-key add Release.key && \
+	echo "deb http://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list && \
+	apt-key add /winehq.key && \
+	mv /winehq.key /usr/share/keyrings/winehq-archive.key && \
 	dpkg --add-architecture i386 && \
 	apt-get update && \
-	apt-get install -y --install-recommends winehq-devel \
-	&& rm -rf /var/lib/apt/lists/* /Release.key
+	apt-get install -y -q --install-recommends winehq-devel && \
+	rm -rf /var/lib/apt/lists/* /winehq.key
 
 # Add wine user.
 # NOTE: You might need to change the UID/GID so the
@@ -41,4 +42,3 @@ USER wine
 # Autorun MetaTrader Terminal.
 ENTRYPOINT [ "wine" ]
 CMD [ "/MetaTrader/terminal64.exe", "/portable" ]
-
