@@ -17,6 +17,9 @@ FROM ubuntu:focal
 
 ADD https://dl.winehq.org/wine-builds/winehq.key /winehq.key
 
+# Disable interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install Wine
 RUN apt-get update && \
 	apt-get install -y gnupg apt-utils && \
