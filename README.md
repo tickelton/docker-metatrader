@@ -9,8 +9,10 @@ container is a very convenient solution.
 Requirements
 ------------
 
-The image built from this Dockerfile only provides a wine
-installation compatible with MetaTrader 4 and MetaTrader 5 and the entry point to run MetaTrader automatically.
+This repository contains two Dockerfiles. One for running 64bit MetaTrader 5 and one for running
+32bit MetaTrader 4.
+The images built from these Dockerfiles only provide a wine
+installation compatible with MetaTrader 4 or MetaTrader 5 and the entry point to run MetaTrader automatically.
 
 MetaTrader itself is not included and has to be supplied
 separately.
@@ -27,7 +29,7 @@ Usage
 
 Building the image with:
 ```shell
-# docker build .
+# docker build -f Dockerfile.mt5-64bit .
 ```
 will result in an image containing a suitable installation of Wine but missing the gecko and mono packages.
 
@@ -37,7 +39,7 @@ This issue can be solved as follow:
 
 * start a container:
 ```shell
-# docker build .
+# docker build -f Dockerfile.mt5-64bit .
 ```
 * let wine automatically install the missing packages.
 * stop the container without any further actions (by closing MetaTrader).
